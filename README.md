@@ -48,6 +48,7 @@ Executing a POST Request
 
 	String url = ...
 	Person person = ...
+	
 	Header header = client.create(url, person);
 	
 	if (header != null) {
@@ -59,6 +60,7 @@ Executing a PUT Request
 
 	String url = ...
 	Person person = ...
+	
 	client.update(url, person);
 
 Configuration
