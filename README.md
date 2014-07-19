@@ -35,7 +35,7 @@ Example:
 	
 	Person person = client.get(url, queryParams, Person.class);
 
-Executing a GET Request to get list of objects
+Execute a GET Request to get list of objects
 ------------------------------------------------------
 
 	String url = ...
@@ -43,7 +43,7 @@ Executing a GET Request to get list of objects
 	
 	List<Person> people = client.get(url, queryParams, new TypeReference<List<Person>>() {});
 	
-Executing a POST Request on a single object
+Execute a POST Request on a single object
 ----------------------------------------------
 
 	String url = ...
@@ -55,7 +55,7 @@ Executing a POST Request on a single object
 	    System.out.println("Location header is: " + header.value());
 	}
 	
-Executing a POST Request on a list of object
+Execute a POST Request on a list of object
 ----------------------------------------------
 
 	String url = ...
@@ -67,7 +67,7 @@ Executing a POST Request on a list of object
 	    System.out.println("Location header is: " + header.value());
 	}
 	
-Executing a PUT Request
+Execute a PUT Request
 ----------------------------
 
 	String url = ...
