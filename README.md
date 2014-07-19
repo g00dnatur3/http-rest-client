@@ -2,7 +2,7 @@ http-rest-client
 ======================
 
 This is an easy to use REST client written in Java. 
-I was frustrated with how there is nothing out there in Java to simply execute REST http calls.
+I was frustrated with how there is nothing out there (in Java) to simply execute REST http calls.
 I looked at the Jersey Client and it still has too much configuration and boilerplate code.
 
 
@@ -72,6 +72,11 @@ I will be updating the code soon to add a RequestDecorator to the builder, this 
 RequestDecorator myDecorator = ... //probably sets required headers (Authorization) etc.
 
 RestClient.builder().httpClient(myClient).requestDecorator(myDecorator).build();
+
+I will also be added more examples in and tests...
+
+
+Cheers!
 
 
 
