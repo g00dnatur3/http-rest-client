@@ -1,7 +1,7 @@
 http-rest-client
 ======================
 
-This is an easy to use REST client written in Java. 
+This is an easy to use REST client written in Java and levarging the HttpClient 4.3 library. 
 I was frustrated with how there is nothing out there (in Java) to simply execute REST http calls.
 I looked at the Jersey Client and it still has too much configuration and boilerplate code.
 
@@ -9,7 +9,12 @@ I looked at the Jersey Client and it still has too much configuration and boiler
 Getting Started
 -------------------------
 
-This example code executes a GET request to the google geocoder api:
+This is the simplest wat to construct a RestClient
+
+	RestClient client = RestClient.builder().build();
+
+
+This example executes a GET request to the google geocoder api:
 
   	RestClient client = RestClient.builder().build();
  
@@ -20,11 +25,41 @@ This example code executes a GET request to the google geocoder api:
 	params.put("sensor", "false");
 
   	JsonNode node = client.get(geocoderUrl, params, JsonNode.class);
-  
-And thats all there is to it.
 
-The library also has delete(), update(), and create() methods...
+Executing a GET Request to get a single object
+------------------------------------------------------
+Example:
 
+	String url = ...
+	Map<String, String> queryParams = ...
+	
+	Person person = client.get(url, queryParams, Person.class);
+
+Executing a GET Request to get list of objects
+------------------------------------------------------
+
+	String url = ...
+	Map<String, String> queryParams = ...
+	
+	List<Person> people = client.get(url, queryParams, new TypeReference<List<Person>>() {});
+	
+Executing a POST Request
+----------------------------
+
+	String url = ...
+	Person person = ...
+	Header header = client.create(url, person);
+	
+	if (header != null) {
+	    System.out.println("Location header is: " + header.value());
+	}
+	
+Executing a PUT Request
+----------------------------
+
+	String url = ...
+	Person person = ...
+	client.update(url, person);
 
 Configuration
 -------------------------
