@@ -74,11 +74,11 @@ public class RestClient extends AbstractRestClient {
     	return get(null, path, params, type, 200);
     }
     
-    public <T> Header create(RequestDecorator decorator, String path, List<T> data) throws Exception {
+    public Header create(RequestDecorator decorator, String path, List<?> data) throws Exception {
         return create(decorator, path, data, 201);
     }
     
-    public <T> Header create(String path, List<T> data) throws Exception {
+    public Header create(String path, List<?> data) throws Exception {
         return create(null, path, data, 201);
     }
 
@@ -99,7 +99,7 @@ public class RestClient extends AbstractRestClient {
         return create(null, path, object, 201);
     }
 
-    private <T> Header create(RequestDecorator decorator, String path, List<T> data, int expectedStatus) throws RestClientException, IOException {
+    private Header create(RequestDecorator decorator, String path, List<?> data, int expectedStatus) throws RestClientException, IOException {
     	HttpPost post = contentTypeJson(new HttpPost(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         post.setEntity(entity);
@@ -133,6 +133,24 @@ public class RestClient extends AbstractRestClient {
     	
         HttpPut put = contentTypeJson(new HttpPut(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
+        put.setEntity(entity);
+        HttpResponse response = execute(decorator, put, expectedStatus);
+        EntityUtils.consume(response.getEntity());
+    }
+    
+    public void update(RequestDecorator decorator, String path, List<?> data) throws Exception {
+        update(decorator, path, data, 200);
+    }
+    
+    public void update(String path, List<?> data) throws Exception {
+        update(null, path, data, 200);
+    }
+    
+    private void update(RequestDecorator decorator, String path, List<?> data, int expectedStatus) 
+    		throws RestClientException, IOException {
+    	
+        HttpPut put = contentTypeJson(new HttpPut(path));
+        HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         put.setEntity(entity);
         HttpResponse response = execute(decorator, put, expectedStatus);
         EntityUtils.consume(response.getEntity());
