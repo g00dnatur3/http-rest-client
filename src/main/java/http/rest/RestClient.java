@@ -1,5 +1,6 @@
 package http.rest;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,17 +22,19 @@ public class RestClient extends AbstractRestClient {
 		super(builder);
 	}
 
-    private String get(String path, Map<String, String> params, int expectedStatus) throws Exception {
-        HttpGet get = new HttpGet(appendParams(path, params));
-        HttpResponse response = execute(get, expectedStatus);
+    private String get(RequestDecorator decorator, String path, Map<String, String> queryParams, int expectedStatus) 
+    		throws RestClientException, IOException {
+    	
+        HttpGet get = new HttpGet(appendParams(path, queryParams));
+        HttpResponse response = execute(decorator, get, expectedStatus);
         String content = contentAsString(response);
         EntityUtils.consume(response.getEntity());
         return content;
     }
 
-    public <T> T get(String path, Map<String, String> params, Class<T> entityClass, int expectedStatus)
+    public <T> T get(RequestDecorator decorator, String path, Map<String, String> queryParams, Class<T> entityClass, int expectedStatus)
             throws Exception {
-        String content = get(path, params, expectedStatus);
+        String content = get(decorator, path, queryParams, expectedStatus);
         if (content != null) {
             return bindObject(content, entityClass);
         }
@@ -40,9 +43,9 @@ public class RestClient extends AbstractRestClient {
         }
     }
     
-    public <T> List<T> get(String path, Map<String, String> params, TypeReference<List<T>> type, int expectedStatus)
+    public <T> List<T> get(RequestDecorator decorator, String path, Map<String, String> params, TypeReference<List<T>> type, int expectedStatus)
             throws Exception {
-    	String content = get(path, params, expectedStatus);
+    	String content = get(decorator, path, params, expectedStatus);
         if (content != null) {
         	return bindJsonArray(content, type);
         }
@@ -50,59 +53,88 @@ public class RestClient extends AbstractRestClient {
             return null;
         }
     }
+   
+    public <T> T get(RequestDecorator decorator, String path, Map<String, String> params, Class<T> entityClass)
+            throws Exception {
+    	return get(decorator, path, params, entityClass, 200);
+    }
     
     public <T> T get(String path, Map<String, String> params, Class<T> entityClass)
             throws Exception {
-    	return get(path, params, entityClass, 200);
+    	return get(null, path, params, entityClass, 200);
+    }
+    
+    public <T> List<T> get(RequestDecorator decorator, String path, Map<String, String> params, TypeReference<List<T>> type)
+            throws Exception {
+    	return get(decorator, path, params, type, 200);
     }
     
     public <T> List<T> get(String path, Map<String, String> params, TypeReference<List<T>> type)
             throws Exception {
-    	return get(path, params, type, 200);
+    	return get(null, path, params, type, 200);
+    }
+    
+    public <T> Header create(RequestDecorator decorator, String path, List<T> data) throws Exception {
+        return create(decorator, path, data, 201);
     }
     
     public <T> Header create(String path, List<T> data) throws Exception {
-        return create(path, data, 201);
+        return create(null, path, data, 201);
     }
 
-    private Header create(String path, Object object, int expectedStatus) throws Exception {
+    private Header create(RequestDecorator decorator, String path, Object object, int expectedStatus) throws RestClientException, IOException {
         HttpPost post = contentTypeJson(new HttpPost(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         post.setEntity(entity);
-        return execute(post, expectedStatus).getFirstHeader("Location");
+        return execute(decorator, post, expectedStatus).getFirstHeader("Location");
     }
 
+    public Header create(RequestDecorator decorator, String path, Object object)
+            throws Exception {
+        return create(decorator, path, object, 201);
+    }
+    
     public Header create(String path, Object object)
             throws Exception {
-        return create(path, object, 201);
+        return create(null, path, object, 201);
     }
 
-    private <T> Header create(String path, List<T> data, int expectedStatus) throws Exception {
+    private <T> Header create(RequestDecorator decorator, String path, List<T> data, int expectedStatus) throws RestClientException, IOException {
     	HttpPost post = contentTypeJson(new HttpPost(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         post.setEntity(entity);
-        return execute(post, expectedStatus).getFirstHeader("Location");
+        return execute(decorator, post, expectedStatus).getFirstHeader("Location");
+    }
+    
+    public void delete(RequestDecorator decorator, String path) throws Exception {
+        delete(decorator, path, 200);
     }
 
     public void delete(String path) throws Exception {
-        delete(path, 200);
+        delete(null, path, 200);
     }
 
-    private void delete(String path, int expectedStatus) throws Exception {
+    private void delete(RequestDecorator decorator, String path, int expectedStatus) throws RestClientException, IOException {
         HttpDelete delete = new HttpDelete(path);
-        HttpResponse response = execute(delete, expectedStatus);
+        HttpResponse response = execute(decorator, delete, expectedStatus);
         EntityUtils.consume(response.getEntity());
     }
 
+    public void update(RequestDecorator decorator, String path, Object object) throws Exception {
+        update(decorator, path, object, 200);
+    }
+    
     public void update(String path, Object object) throws Exception {
-        update(path, object, 200);
+        update(null, path, object, 200);
     }
 
-    private void update(String path, Object object, int expectedStatus) throws Exception {
+    private void update(RequestDecorator decorator, String path, Object object, int expectedStatus) 
+    		throws RestClientException, IOException {
+    	
         HttpPut put = contentTypeJson(new HttpPut(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         put.setEntity(entity);
-        HttpResponse response = execute(put, expectedStatus);
+        HttpResponse response = execute(decorator, put, expectedStatus);
         EntityUtils.consume(response.getEntity());
     }
 }

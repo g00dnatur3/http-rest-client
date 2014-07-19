@@ -1,8 +1,11 @@
 package test;
 
+import http.rest.RequestDecorator;
+
 import java.net.URLEncoder;
 import java.util.Map;
 
+import org.apache.http.client.methods.HttpUriRequest;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,4 +36,5 @@ public class GoogleGeocodeTest extends BaseTest {
 		assertNotNull(node);
 		assertNotNull(node.get("results"));
 	}
+	
 }

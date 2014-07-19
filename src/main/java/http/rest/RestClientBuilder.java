@@ -12,6 +12,8 @@ public class RestClientBuilder {
 	
 	protected ObjectMapper mapper;
 	
+	protected RequestDecorator decorator;
+	
 	protected RestClientBuilder() {
 		// defaults
 		client = HttpClientBuilder.create().useSystemProperties().build();
@@ -26,6 +28,11 @@ public class RestClientBuilder {
 
 	public RestClientBuilder objectMapper(ObjectMapper mapper) {
 		this.mapper = mapper;
+		return this;
+	}
+	
+	public RestClientBuilder requestDecorator(RequestDecorator decorator) {
+		this.decorator = decorator;
 		return this;
 	}
 	

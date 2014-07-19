@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
@@ -22,13 +23,16 @@ public abstract class AbstractRestClient {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected final HttpClient client;
+	private final HttpClient client;
 	
-	protected final ObjectMapper mapper;
+	private final ObjectMapper mapper;
 
+	private final RequestDecorator decorator;
+	
 	protected AbstractRestClient(RestClientBuilder builder) {
 		this.client = builder.client;
 		this.mapper = builder.mapper;
+		this.decorator = builder.decorator;
 	}
 	
 	public static RestClientBuilder builder() {
@@ -53,19 +57,37 @@ public abstract class AbstractRestClient {
         return mapper.convertValue(data, JsonNode.class);
     }
     
-    protected String contentAsString(HttpResponse response) throws Exception {
+    protected String contentAsString(HttpResponse response) throws IOException {
         return IOUtils.toString(response.getEntity().getContent(), "UTF-8");
     }
 
-    protected byte[] contentAsBytes(HttpResponse response) throws Exception {
+    protected byte[] contentAsBytes(HttpResponse response) throws IOException {
         return IOUtils.toByteArray(response.getEntity().getContent());
     }
     
-    protected <T extends HttpUriRequest> HttpResponse execute(T request, int expectedStatus) throws Exception {
+    private HttpResponse execute(RequestDecorator decorator, HttpUriRequest request) 
+    		throws ClientProtocolException, IOException {
+    	
+    	if (decorator != null) {
+    		decorator.decorate(request);
+    	} else if (this.decorator != null) {
+    		this.decorator.decorate(request);
+    	}
+    	return client.execute(request);
+    }
+    
+    protected HttpResponse execute(RequestDecorator decorator, HttpUriRequest request, 
+    		int expectedStatus) throws RestClientException {
+    	
     	String method = request.getMethod();
     	String path = request.getURI().toString();
     	logger.info("Send --> " + method + " " + path);
-    	HttpResponse response = client.execute(request);
+    	HttpResponse response = null;
+		try {
+			response = execute(decorator, request);
+		} catch (Exception e) {
+			throw new RestClientException(e, response);
+		}
     	int status = response.getStatusLine().getStatusCode();
         if (expectedStatus != successStatus(method)) {
             if (status == successStatus(method)) {
@@ -92,10 +114,10 @@ public abstract class AbstractRestClient {
     }
     
     private int successStatus(String method) {
-    	switch (method) {
-    		case "POST": return 201;
-    		default: return 200;
+    	if (method.equalsIgnoreCase("POST")) {
+    		return 201;
     	}
+    	return 200;
     }
     
     protected String appendParams(String path, Map<String, String> params) {

@@ -11,6 +11,11 @@ public class RestClientException extends Exception {
 		super(message);
 		this.response = response;
 	}
+	
+	public RestClientException(Exception e, HttpResponse response) {
+		super(e);
+		this.response = response;
+	}
 
 	public HttpResponse response() {
 		return response;
