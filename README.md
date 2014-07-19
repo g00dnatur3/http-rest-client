@@ -73,7 +73,7 @@ RequestDecorator myDecorator = ... //probably sets required headers (Authorizati
 
 RestClient.builder().httpClient(myClient).requestDecorator(myDecorator).build();
 
-I will also be added more examples in and tests...
+I will also be adding more examples in and tests...
 
 
 Cheers!
