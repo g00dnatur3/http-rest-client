@@ -43,13 +43,25 @@ Executing a GET Request to get list of objects
 	
 	List<Person> people = client.get(url, queryParams, new TypeReference<List<Person>>() {});
 	
-Executing a POST Request
-----------------------------
+Executing a POST Request on a single object
+----------------------------------------------
 
 	String url = ...
 	Person person = ...
 	
 	Header header = client.create(url, person);
+	
+	if (header != null) {
+	    System.out.println("Location header is: " + header.value());
+	}
+	
+Executing a POST Request on a list of object
+----------------------------------------------
+
+	String url = ...
+	List<Person> people = ...
+	
+	Header header = client.create(url, people);
 	
 	if (header != null) {
 	    System.out.println("Location header is: " + header.value());
