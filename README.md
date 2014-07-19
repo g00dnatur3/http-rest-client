@@ -31,27 +31,27 @@ Configuration
 
 The following system properties are taken into account by this library:
 
-ssl.TrustManagerFactory.algorithm
-javax.net.ssl.trustStoreType
-javax.net.ssl.trustStore
-javax.net.ssl.trustStoreProvider
-javax.net.ssl.trustStorePassword
-java.home
-ssl.KeyManagerFactory.algorithm
-javax.net.ssl.keyStoreType
-javax.net.ssl.keyStore
-javax.net.ssl.keyStoreProvider
-javax.net.ssl.keyStorePassword
-http.proxyHost
-http.proxyPort
-http.nonProxyHosts
-http.keepAlive
-http.maxConnections
+	ssl.TrustManagerFactory.algorithm
+	javax.net.ssl.trustStoreType
+	javax.net.ssl.trustStore
+	javax.net.ssl.trustStoreProvider
+	javax.net.ssl.trustStorePassword
+	java.home
+	ssl.KeyManagerFactory.algorithm
+	javax.net.ssl.keyStoreType
+	javax.net.ssl.keyStore
+	javax.net.ssl.keyStoreProvider
+	javax.net.ssl.keyStorePassword
+	http.proxyHost
+	http.proxyPort
+	http.nonProxyHosts
+	http.keepAlive
+	http.maxConnections
 
-So, for example, if you wanted to configure the proxy you could do
+So, for example, if you wanted to configure the proxy you could do:
 
-System.setProperty("http.proxyHost","somehost.com")
-System.setProperty("http.proxyPort","8080")
+	System.setProperty("http.proxyHost","somehost.com")
+	System.setProperty("http.proxyPort","8080")
 
 
 Injecting your own HttpClient
