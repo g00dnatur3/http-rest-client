@@ -26,7 +26,7 @@ This example executes a GET request to the google geocoder api:
 
   	JsonNode node = client.get(geocoderUrl, params, JsonNode.class);
 
-Executing a GET Request to get a single object
+Execute a GET Request to get a single object
 ------------------------------------------------------
 Example:
 
@@ -55,7 +55,7 @@ Execute a POST Request on a single object
 	    System.out.println("Location header is: " + header.value());
 	}
 	
-Execute a POST Request on a list of object
+Execute a POST Request on a list of objects
 ----------------------------------------------
 
 	String url = ...
@@ -67,13 +67,21 @@ Execute a POST Request on a list of object
 	    System.out.println("Location header is: " + header.value());
 	}
 	
-Execute a PUT Request
-----------------------------
+Execute a PUT Request on a single object
+---------------------------------------------
 
 	String url = ...
 	Person person = ...
 	
 	client.update(url, person);
+	
+Execute a PUT Request on a list of objects
+---------------------------------------------
+
+	String url = ...
+	List<Person> people = ...
+	
+	client.update(url, people);
 
 Configuration
 -------------------------
