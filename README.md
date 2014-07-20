@@ -249,16 +249,15 @@ Yup, your read right, you can even inject your own RestClient implementation thr
 	
 How else could I do proper unit testing? ... with interfaces? yuck! lol I have enough code as is.
 
-I use this feature to inject a MockRestClient to mock instances of the HttpGet, HttpPost, HttpPut, and HttpDelete
+I can use this feature to provide mock instances of HttpGet, HttpPost, HttpPut, and HttpDelete.
 
-Look at `test.integration.CustomRequestClientTest` to see a real working example of this.
+Look at `test.integration.CustomRequestClientTest` to see working example code of this.
 
-All this cool injection and I am not even using Guice...
 
 Next Steps
 ------------------------------
 
-Create mocks of HttpClient dependencies so I can do unit testing
+Create mocks of HttpClient dependencies for unit testing
 
 Cheers!
 
