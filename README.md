@@ -207,7 +207,7 @@ Because I am using the builder pattern, it is quite easy to inject your own Http
 
 	HttpClient myHttpClient = ...
 
-	RestClient.builder().httpClient(myClient).build();
+	RestClient.builder().httpClient(myHttpClient).build();
 
 Setting Cookies with your own HttpClient
 -------------------------------------
@@ -223,7 +223,7 @@ In order to set cookies, you need create your own HttpClient like so:
 	//notice the useSystemPoperties() -> enables configuration (Proxy, SSL...) via system properties
 	HttpClient myHttpClient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).useSystemProperties().build();
 
-	RestClient client = RestClient.builder().httpClient(myClient).build();
+	RestClient client = RestClient.builder().httpClient(myHttpClient).build();
 
 
 
