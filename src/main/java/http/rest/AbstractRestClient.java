@@ -23,9 +23,9 @@ public abstract class AbstractRestClient {
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private final HttpClient client;
+	protected final HttpClient client;
 	
-	private final ObjectMapper mapper;
+	protected final ObjectMapper mapper;
 
 	private final RequestDecorator decorator;
 	

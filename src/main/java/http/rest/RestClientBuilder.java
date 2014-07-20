@@ -14,12 +14,9 @@ public class RestClientBuilder {
 	
 	protected RequestDecorator decorator;
 	
-	protected RestClientBuilder() {
-		// defaults
-		client = HttpClientBuilder.create().useSystemProperties().build();
-		mapper = new ObjectMapper();
-		mapper.setSerializationInclusion(Include.NON_NULL);
-	}
+	protected RestClientCreator creator;
+	
+	protected RestClientBuilder() {}
 	
 	public RestClientBuilder httpClient(HttpClient client) {
 		this.client = client;
@@ -37,7 +34,17 @@ public class RestClientBuilder {
 	}
 	
 	public RestClient build() {
-		return new RestClient(this);
+		if (creator == null) {
+			creator = new RestClientCreator();
+		}
+		if (mapper == null) {
+			mapper = new ObjectMapper();
+			mapper.setSerializationInclusion(Include.NON_NULL);
+		}
+		if (client == null) {
+			client = HttpClientBuilder.create().useSystemProperties().build();
+		}
+		return creator.create(this);
 	}
 	
 }
