@@ -1,7 +1,7 @@
 http-rest-client
 ======================
 
-This is an easy to use REST client written in Java and levarging the HttpClient 4.3 library. 
+A simple & easy to use REST client written in Java and levarging the HttpClient 4.3 library. 
 I was frustrated with how there is nothing out there (in Java) to simply execute REST calls.
 I looked at the Jersey Client and it still has too much configuration and boilerplate code.
 
