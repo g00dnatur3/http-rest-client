@@ -180,7 +180,7 @@ If your request fails, have no fear, you can get your hands on the HttpResonse a
 
 All the RestClient methods `get` `post` `put` `create` throw a RestClientException when they fail to execute.
 
-The RestClientException contains the actual "ready-to-conume" HttpResponse object.
+The RestClientException contains the actual "ready-to-consume" HttpResponse object.
 
 I designed it so that handling errors is flexible and easy..
 
