@@ -17,7 +17,7 @@ SBT
 	resolvers += "java-utils" at "http://dl.bintray.com/g00dnatur3/java-utils/"
 	
 	libraryDependencies ++= Seq(
-	  "g00dnatur3" %% "http-rest-client" % "1.0.16"
+	  "g00dnatur3" %% "http-rest-client" % "1.0.17"
 	)
 	
 Maven
@@ -30,7 +30,7 @@ Maven
 	<dependency>
 		<groupId>g00dnatur3</groupId>
 		<artifactId>http-rest-client_2.10</artifactId>
-		<version>1.0.16</version>
+		<version>1.0.17</version>
 	</dependency>
 
 Getting Started
@@ -109,33 +109,32 @@ Execute a PUT Request on a list of objects
 	
 	client.update(url, people);
 
-Setting headers with RequestDecorator (How to Authorize requests)
+Add headers with RequestInterceptor (How to Authorize requests)
 ------------------------------------------------
 
-In order to set headers/cookies on a request you need to use the RequestDecorator.
+In order to add headers on a request you need to use the RequestInterceptor.
 
-This is an example of a RequestDecorator that will "decorate" all requests sent from a RestClient.
+This is an example of a RequestInterceptor that will "intercept" all requests sent from a RestClient and add an Authorization header to them.
 
 	final String credentials = ...
-	RequestDecorator authorize = new RequestDecorator() {
+	RequestDecorator authorize = new RequestInterceptor() {
 		@Override
-		public void decorate(HttpUriRequest request) {
+		public void intercept(HttpUriRequest request) {
 			request.addHeader("Authorization", credentials);
 		}
 	};
-	RestClient client = RestClient.builder().requestDecorator(authorize).build();
+	RestClient client = RestClient.builder().requestInterceptor(authorize).build();
 	
-All RestClient methods `get`,`create`,`update`,`delete` are overloaded with a RequestDecorator.
+All RestClient methods `get`,`create`,`update`,`delete` are overloaded with a RequestInterceptor.
 
-This allows setting headers/cookies on a per reqeust basis instead of a per client basis as shown above.
+This allows adding headers on a per reqeust basis instead of a per client basis as shown above.
 
-This example of RequestDecorator will "decorate" on a per request basis:
-
+This example of RequestInterceptor will "intercept" on a per request basis to add a header:
 
 	public RequestDecorator authorize(final String credentials) {
-		return new RequestDecorator() {
+		return new RequestInterceptor() {
 			@Override
-			public void decorate(HttpUriRequest request) {
+			public void intercept(HttpUriRequest request) {
 				request.addHeader("Authorization", credentials);
 			}
 		};
