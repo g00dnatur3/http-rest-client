@@ -30,7 +30,7 @@ Maven
 	<dependency>
 		<groupId>g00dnatur3</groupId>
 		<artifactId>http-rest-client_2.10</artifactId>
-		<version>1.0.15</version>
+		<version>1.0.16</version>
 	</dependency>
 
 Getting Started
