@@ -145,6 +145,10 @@ This example of RequestDecorator will "decorate" on a per request basis:
 	    return client.get(authorize(credentials), url, null, Person.class); //queryParams=null
 	}
 
+	public Header createPerson(String credentials, Person person) {
+	    return client.create(authorize(credentials), url, person);
+	}
+
 
 Configuration (Proxy, SSL...)
 -------------------------
