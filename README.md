@@ -17,7 +17,7 @@ SBT
 	resolvers += "java-utils" at "http://dl.bintray.com/g00dnatur3/java-utils/"
 	
 	libraryDependencies ++= Seq(
-	  "g00dnatur3" %% "http-rest-client" % "1.0.12"
+	  "g00dnatur3" %% "http-rest-client" % "1.0.15"
 	)
 	
 Maven
@@ -30,7 +30,7 @@ Maven
 	<dependency>
 		<groupId>g00dnatur3</groupId>
 		<artifactId>http-rest-client_2.10</artifactId>
-		<version>1.0.12</version>
+		<version>1.0.15</version>
 	</dependency>
 
 Getting Started
@@ -209,6 +209,33 @@ HttpClient myClient = ...
 
 RestClient.builder().httpClient(myClient).build()
 
+Injecting your own RestClient!!
+--------------------------------
+
+Yup, your read right, you can even inject your own RestClient implementation thru the builder.
+
+	// you can override any of the RestClient methods you desire
+	
+	public class MyRestClient extends RestClient {
+		protected MyRestClient(RestClientBuilder builder) {
+			super(builder);
+		}
+		
+		@Override
+		protected HttpGet newHttpGet(String url) {
+			...
+		}
+	}
+	
+	RestClient client = RestClient.builder().restClientClass(MyRestClient.class).build();
+	
+How else could I do proper unit testing? ... with interfaces? yuck lol I have enough code as is!
+
+I will use this feature to inject a MockRestClient class that uses mock instances of the HttpGet, HttpPost, HttpPut, and HttpDelete
+
+Look at `test.integration.CustomRequestClientTest` to see a real working example of this.
+
+All this cool injection and I am not even using Guice...
 
 Next Steps
 ------------------------------
