@@ -55,7 +55,6 @@ This example executes a GET request to the google geocoder api:
 
 Execute a GET Request to get a single object
 ------------------------------------------------------
-Example:
 
 	String url = ...
 	Map<String, String> queryParams = ...
@@ -69,7 +68,7 @@ Execute a GET Request to get a list of objects
 	Map<String, String> queryParams = ...
 	
 	List<Person> people = client.get(url, queryParams, new TypeReference<List<Person>>() {});
-	
+
 Execute a POST Request on a single object
 ----------------------------------------------
 
