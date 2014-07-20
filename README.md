@@ -109,7 +109,7 @@ Execute a PUT Request on a list of objects
 	
 	client.update(url, people);
 
-Setting headers & cookies with RequestDecorator (How to Authorize requests)
+Setting headers with RequestDecorator (How to Authorize requests)
 ------------------------------------------------
 
 In order to set headers/cookies on a request you need to use the RequestDecorator.
@@ -205,9 +205,27 @@ Injecting your own HttpClient
 
 Because I am using the builder pattern, it is quite easy to inject your own HttpClient instance:
 
-HttpClient myClient = ...
+	HttpClient myHttpClient = ...
 
-RestClient.builder().httpClient(myClient).build()
+	RestClient.builder().httpClient(myClient).build();
+
+Setting Cookies with your own HttpClient
+-------------------------------------
+
+In order to set cookies, you need create your own HttpClient like so:
+
+	BasicCookieStore cookieStore = new BasicCookieStore();
+	BasicClientCookie cookie = new BasicClientCookie("JSESSIONID", "1234");
+    	cookie.setDomain(".github.com");
+    	cookie.setPath("/");
+    	cookieStore.addCookie(cookie);
+    	
+    	//notice the useSystemPoperties() -> enables configuration (Proxy, SSL...) via system properties
+    	HttpClient myHttpClient = 		HttpClientBuilder.create().setDefaultCookieStore(cookieStore).useSystemProperties().build();
+
+	RestClient.builder().httpClient(myClient).build();
+
+
 
 Injecting your own RestClient!
 --------------------------------
