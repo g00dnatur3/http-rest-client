@@ -126,7 +126,7 @@ This is an example of a RequestDecorator that will "decorate" all requests sent 
 	};
 	RestClient client = RestClient.builder().requestDecorator(authorize).build();
 	
-All RestClient methods `get()`,`create`,`update`,`delete` are overloaded with a RequestDecorator.
+All RestClient methods `get`,`create`,`update`,`delete` are overloaded with a RequestDecorator.
 
 This allows setting headers/cookies on a per reqeust basis instead of a per client basis as show above.
 
