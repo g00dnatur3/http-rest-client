@@ -45,7 +45,7 @@ This example executes a GET request to the google geocoder api:
 
   	RestClient client = RestClient.builder().build();
  
-  	String geocoderUrl = "http://maps.googleapis.com/maps/api/geocode/json"
+  	String geocoderUrl = "http://maps.googleapis.com/maps/api/geocode/json";
 
 	Map<String, String> params = Maps.newHashMap();
 	params.put("address", "1980 W. Bayshore Rd. 94303");
