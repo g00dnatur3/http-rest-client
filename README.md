@@ -88,7 +88,7 @@ Setting headers & cookies with RequestDecorator (How to Authorize requests)
 
 In order to set headers/cookies on a request you need to use the RequestDecorator.
 
-An example of a RequestDecorator that will "decorate" all requests sent from a RestClient.
+This is an example of a RequestDecorator that will "decorate" all requests sent from a RestClient.
 
 	final String credentials = ...
 	RequestDecorator authorize = return new RequestDecorator() {
@@ -103,7 +103,7 @@ All RestClient methods `get()`,`create`,`update`,`delete` are overloaded with a 
 
 This allows setting headers/cookies on a per reqeust basis instead of a per client basis as show above.
 
-An example of a RequestDecorator that will "decorate" a single request sent from a RestClient.
+Another example of a RequestDecorator that will "decorate" a single request sent from a RestClient.
 
 
 	public RequestDecorator authorize(final String credentials) {
