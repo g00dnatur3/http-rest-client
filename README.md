@@ -52,7 +52,7 @@ Execute a POST Request on a single object
 	Header header = client.create(url, person);
 	
 	if (header != null) {
-	    System.out.println("Location header is: " + header.value());
+		System.out.println("Location header is: " + header.value());
 	}
 	
 Execute a POST Request on a list of objects
@@ -64,7 +64,7 @@ Execute a POST Request on a list of objects
 	Header header = client.create(url, people);
 	
 	if (header != null) {
-	    System.out.println("Location header is: " + header.value());
+		System.out.println("Location header is: " + header.value());
 	}
 	
 Execute a PUT Request on a single object
@@ -82,6 +82,43 @@ Execute a PUT Request on a list of objects
 	List<Person> people = ...
 	
 	client.update(url, people);
+
+Setting headers & cookies with RequestDecorator (How to Authorize requests)
+------------------------------------------------
+
+In order to set headers/cookies on a request you need to use the RequestDecorator.
+
+An example of a RequestDecorator that will "decorate" all requests sent from a RestClient.
+
+	final String credentials = ...
+	RequestDecorator authorize = return new RequestDecorator() {
+		@Override
+		public void decorate(HttpUriRequest request) {
+			request.addHeader("Authorization", credentials);
+		}
+	};
+	RestClient client = RestClient.builder().requestDecorator(authorize).build();
+	
+All RestClient methods `get()`,`create`,`update`,`delete` are overloaded with a RequestDecorator.
+
+This allows setting headers/cookies on a per reqeust basis instead of a per client basis as show above.
+
+An example of a RequestDecorator that will "decorate" a single request sent from a RestClient.
+
+
+	public RequestDecorator authorize(final String credentials) {
+		return new RequestDecorator() {
+			@Override
+			public void decorate(HttpUriRequest request) {
+				request.addHeader("Authorization", credentials);
+			}
+		};
+	}
+	
+	public Person getPerson(String credentials) {
+	    return client.get(authorize(credentials), url, null, Person.class); //queryParams=null
+	}
+
 
 Configuration
 -------------------------
