@@ -169,7 +169,7 @@ The following system properties are taken into account by this library:
 	http.keepAlive
 	http.maxConnections
 
-So, for example, if you wanted to configure the proxy you could do:
+For example, if you wanted to configure the proxy you could do:
 
 	System.setProperty("http.proxyHost","somehost.com")
 	System.setProperty("http.proxyPort","8080")
