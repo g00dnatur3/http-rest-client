@@ -188,8 +188,7 @@ RestClient.builder().httpClient(myClient).build()
 Next Steps
 ------------------------------
 
-I will add this project to bintray and add more examples and tests.
-
+Add more examples and tests.
 
 Cheers!
 
