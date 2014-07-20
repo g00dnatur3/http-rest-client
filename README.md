@@ -161,13 +161,7 @@ RestClient.builder().httpClient(myClient).build()
 Next Steps
 ------------------------------
 
-I will be updating the code soon to add a RequestDecorator to the builder, this will allow for the "decoration" of the request before it is sent... a good example of this would be to set the Authorization header.
-
-RequestDecorator myDecorator = ... //probably sets required headers (Authorization) etc.
-
-RestClient.builder().httpClient(myClient).requestDecorator(myDecorator).build();
-
-I will also add more examples and tests...
+I will add this project to bintray and add more examples and tests.
 
 
 Cheers!
