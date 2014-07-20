@@ -209,7 +209,7 @@ HttpClient myClient = ...
 
 RestClient.builder().httpClient(myClient).build()
 
-Injecting your own RestClient!!
+Injecting your own RestClient!
 --------------------------------
 
 Yup, your read right, you can even inject your own RestClient implementation thru the builder.
