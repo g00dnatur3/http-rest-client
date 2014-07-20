@@ -120,7 +120,7 @@ Another example of a RequestDecorator that will "decorate" a single request sent
 	}
 
 
-Configuration
+Configuration (Prox, SSL...)
 -------------------------
 
 The following system properties are taken into account by this library:
