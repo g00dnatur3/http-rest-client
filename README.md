@@ -5,6 +5,10 @@ This is an easy to use REST client written in Java and levarging the HttpClient 
 I was frustrated with how there is nothing out there (in Java) to simply execute REST http calls.
 I looked at the Jersey Client and it still has too much configuration and boilerplate code.
 
+Important Note:  This library only supports JSON payloads. You are more than welcome to add XML support and then send me a pull request. I have no future plans to add XML support.
+
+Cheers!
+
 SBT/Maven Dependency
 -------------------------
 
