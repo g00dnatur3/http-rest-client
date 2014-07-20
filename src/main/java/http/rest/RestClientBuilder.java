@@ -33,6 +33,11 @@ public class RestClientBuilder {
 		return this;
 	}
 	
+	public RestClientBuilder restClientCreator(RestClientCreator creator) {
+		this.creator = creator;
+		return this;
+	}
+	
 	public RestClient build() {
 		if (creator == null) {
 			creator = new RestClientCreator();
