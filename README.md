@@ -117,7 +117,7 @@ In order to add headers on a request you need to use the RequestInterceptor.
 This is an example of a RequestInterceptor that will "intercept" all requests sent from a RestClient and add an Authorization header to them.
 
 	final String credentials = ...
-	RequestDecorator authorize = new RequestInterceptor() {
+	RequestInterceptor authorize = new RequestInterceptor() {
 		@Override
 		public void intercept(HttpUriRequest request) {
 			request.addHeader("Authorization", credentials);
