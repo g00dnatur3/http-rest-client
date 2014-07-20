@@ -176,7 +176,7 @@ For example, if you wanted to configure the proxy you could do:
 
 Handling failed Requests
 ------------------------------
-If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however youneed.
+If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however you need.
 
 All the RestClient methods `get` `post` `put` `create` throw a RestClientException when they fail to execute.
 
