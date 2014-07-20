@@ -118,7 +118,7 @@ In order to set headers/cookies on a request you need to use the RequestDecorato
 This is an example of a RequestDecorator that will "decorate" all requests sent from a RestClient.
 
 	final String credentials = ...
-	RequestDecorator authorize = return new RequestDecorator() {
+	RequestDecorator authorize = new RequestDecorator() {
 		@Override
 		public void decorate(HttpUriRequest request) {
 			request.addHeader("Authorization", credentials);
