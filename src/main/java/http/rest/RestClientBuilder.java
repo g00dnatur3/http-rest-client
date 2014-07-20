@@ -14,7 +14,7 @@ public class RestClientBuilder {
 
     protected ObjectMapper mapper;
 
-    protected RequestDecorator decorator;
+    protected RequestInterceptor interceptor;
 
     protected Class<? extends RestClient> clazz;
 
@@ -31,8 +31,8 @@ public class RestClientBuilder {
 	return this;
     }
 
-    public RestClientBuilder requestDecorator(RequestDecorator decorator) {
-	this.decorator = decorator;
+    public RestClientBuilder requestInterceptor(RequestInterceptor interceptor) {
+	this.interceptor = interceptor;
 	return this;
     }
 

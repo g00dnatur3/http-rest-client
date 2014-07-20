@@ -31,12 +31,12 @@ public abstract class AbstractRestClient {
 
     protected final ObjectMapper mapper;
 
-    protected final RequestDecorator decorator;
+    protected final RequestInterceptor interceptor;
 
     protected AbstractRestClient(RestClientBuilder builder) {
 	this.client = builder.client;
 	this.mapper = builder.mapper;
-	this.decorator = builder.decorator;
+	this.interceptor = builder.interceptor;
     }
 
     public static RestClientBuilder builder() {
@@ -65,18 +65,18 @@ public abstract class AbstractRestClient {
 	return IOUtils.toByteArray(response.getEntity().getContent());
     }
 
-    protected HttpResponse execute(RequestDecorator decorator, HttpUriRequest request) throws ClientProtocolException,
+    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request) throws ClientProtocolException,
 	    IOException {
 
-	if (decorator != null) {
-	    decorator.decorate(request);
-	} else if (this.decorator != null) {
-	    this.decorator.decorate(request);
+	if (interceptor != null) {
+	    interceptor.intercept(request);
+	} else if (this.interceptor != null) {
+	    this.interceptor.intercept(request);
 	}
 	return client.execute(request);
     }
 
-    protected HttpResponse execute(RequestDecorator decorator, HttpUriRequest request, int expectedStatus)
+    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request, int expectedStatus)
 	    throws RestClientException {
 
 	String method = request.getMethod();
@@ -84,7 +84,7 @@ public abstract class AbstractRestClient {
 	logger.info("Send --> " + method + " " + path);
 	HttpResponse response = null;
 	try {
-	    response = execute(decorator, request);
+	    response = execute(interceptor, request);
 	} catch (Exception e) {
 	    throw new RestClientException(e, response);
 	}

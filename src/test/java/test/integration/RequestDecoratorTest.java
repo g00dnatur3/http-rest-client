@@ -1,7 +1,7 @@
 package test.integration;
 
 import static org.junit.Assert.assertNotNull;
-import http.rest.RequestDecorator;
+import http.rest.RequestInterceptor;
 import http.rest.RestClient;
 
 import java.net.URLEncoder;
@@ -24,13 +24,13 @@ public class RequestDecoratorTest {
     }
 
     @Test
-    public void decorateRequestsThruTheClientBuilder() throws Exception {
+    public void interceptAllRequestsThruTheClientBuilder() throws Exception {
 	final String address = "1980 W. Bayshore Rd. 94303";
 	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false";
 
-	client = RestClient.builder().requestDecorator(new RequestDecorator() {
+	client = RestClient.builder().requestInterceptor(new RequestInterceptor() {
 	    @Override
-	    public void decorate(HttpUriRequest request) {
+	    public void intercept(HttpUriRequest request) {
 		setParams(request, address, false);
 	    }
 	}).build();
@@ -38,13 +38,13 @@ public class RequestDecoratorTest {
     }
 
     @Test
-    public void decorateReqeustsAsNeeded() throws Exception {
+    public void interceptReqeustsAsNeeded() throws Exception {
 	final String address = "1980 W. Bayshore Rd. 94303";
 	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false";
 
-	doAssertions(client.get(new RequestDecorator() {
+	doAssertions(client.get(new RequestInterceptor() {
 	    @Override
-	    public void decorate(HttpUriRequest request) {
+	    public void intercept(HttpUriRequest request) {
 		setParams(request, address, false);
 	    }
 	}, url, null, JsonNode.class));
@@ -52,7 +52,7 @@ public class RequestDecoratorTest {
 
     private void setParams(HttpUriRequest request, String address, boolean sensor) {
 	// i don't recommend to set parameters this way,
-	// its only here so i can verify the decorator is working
+	// its only here so i can verify the interceptor is working
 	HttpParams params = new BasicHttpParams();
 	params.setParameter("address", address);
 	params.setBooleanParameter("sensor", false);
