@@ -130,7 +130,7 @@ All RestClient methods `get()`,`create`,`update`,`delete` are overloaded with a 
 
 This allows setting headers/cookies on a per reqeust basis instead of a per client basis as show above.
 
-Another example of a RequestDecorator that will "decorate" a single request sent from a RestClient.
+This example of RequestDecorator will "decorate" on a per request basis:
 
 
 	public RequestDecorator authorize(final String credentials) {
