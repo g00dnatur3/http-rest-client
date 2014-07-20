@@ -28,7 +28,7 @@ public class RestClient extends AbstractRestClient {
         HttpGet get = new HttpGet(appendParams(path, queryParams));
         HttpResponse response = execute(decorator, get, expectedStatus);
         String content = contentAsString(response);
-        EntityUtils.consume(response.getEntity());
+        consume(response);
         return content;
     }
 
@@ -116,8 +116,7 @@ public class RestClient extends AbstractRestClient {
 
     private void delete(RequestDecorator decorator, String path, int expectedStatus) throws RestClientException, IOException {
         HttpDelete delete = new HttpDelete(path);
-        HttpResponse response = execute(decorator, delete, expectedStatus);
-        EntityUtils.consume(response.getEntity());
+        consume(execute(decorator, delete, expectedStatus));
     }
 
     public void update(RequestDecorator decorator, String path, Object object) throws Exception {
@@ -134,8 +133,7 @@ public class RestClient extends AbstractRestClient {
         HttpPut put = contentTypeJson(new HttpPut(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         put.setEntity(entity);
-        HttpResponse response = execute(decorator, put, expectedStatus);
-        EntityUtils.consume(response.getEntity());
+        consume(execute(decorator, put, expectedStatus));
     }
     
     public void update(RequestDecorator decorator, String path, List<?> data) throws Exception {
@@ -152,7 +150,10 @@ public class RestClient extends AbstractRestClient {
         HttpPut put = contentTypeJson(new HttpPut(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         put.setEntity(entity);
-        HttpResponse response = execute(decorator, put, expectedStatus);
-        EntityUtils.consume(response.getEntity());
+        consume(execute(decorator, put, expectedStatus));
+    }
+    
+    public void consume(HttpResponse response) throws IOException {
+    	EntityUtils.consume(response.getEntity());
     }
 }

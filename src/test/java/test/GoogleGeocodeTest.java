@@ -1,17 +1,14 @@
 package test;
 
-import http.rest.RequestDecorator;
+import static org.junit.Assert.assertNotNull;
 
 import java.net.URLEncoder;
 import java.util.Map;
 
-import org.apache.http.client.methods.HttpUriRequest;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
-
-import static org.junit.Assert.*;
 
 public class GoogleGeocodeTest extends BaseTest {
 

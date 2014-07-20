@@ -57,7 +57,7 @@ public abstract class AbstractRestClient {
         return mapper.convertValue(data, JsonNode.class);
     }
     
-    protected String contentAsString(HttpResponse response) throws IOException {
+    public String contentAsString(HttpResponse response) throws IOException {
         return IOUtils.toString(response.getEntity().getContent(), "UTF-8");
     }
 
