@@ -176,13 +176,11 @@ For example, if you wanted to configure the proxy you could do:
 
 Handling failed Requests
 ------------------------------
-If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however your need.
+If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however youneed.
 
 All the RestClient methods `get` `post` `put` `create` throw a RestClientException when they fail to execute.
 
 The RestClientException contains the actual "ready-to-consume" HttpResponse object.
-
-I designed it so that handling errors is flexible and easy..
 
 
 	try {
