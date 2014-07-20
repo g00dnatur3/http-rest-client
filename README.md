@@ -62,7 +62,7 @@ Example:
 	
 	Person person = client.get(url, queryParams, Person.class);
 
-Execute a GET Request to get list of objects
+Execute a GET Request to get a list of objects
 ------------------------------------------------------
 
 	String url = ...
