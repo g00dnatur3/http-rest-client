@@ -36,7 +36,7 @@ Maven
 Getting Started
 -------------------------
 
-This is the simplest wat to construct a RestClient
+This is the simplest way to construct a RestClient
 
 	RestClient client = RestClient.builder().build();
 
