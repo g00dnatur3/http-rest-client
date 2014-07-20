@@ -220,10 +220,10 @@ In order to set cookies, you need create your own HttpClient like so:
     	cookie.setPath("/");
     	cookieStore.addCookie(cookie);
     	
-    	//notice the useSystemPoperties() -> enables configuration (Proxy, SSL...) via system properties
-    	HttpClient myHttpClient = 		HttpClientBuilder.create().setDefaultCookieStore(cookieStore).useSystemProperties().build();
+	//notice the useSystemPoperties() -> enables configuration (Proxy, SSL...) via system properties
+	HttpClient myHttpClient = 	HttpClientBuilder.create().setDefaultCookieStore(cookieStore).useSystemProperties().build();
 
-	RestClient.builder().httpClient(myClient).build();
+	RestClient client = RestClient.builder().httpClient(myClient).build();
 
 
 
