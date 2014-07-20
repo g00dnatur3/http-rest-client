@@ -240,7 +240,7 @@ All this cool injection and I am not even using Guice...
 Next Steps
 ------------------------------
 
-Add more examples and tests.
+Create mocks of HttpClient dependencies so I can do unit testing
 
 Cheers!
 
