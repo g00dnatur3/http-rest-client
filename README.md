@@ -131,7 +131,7 @@ This allows adding headers on a per reqeust basis instead of a per client basis 
 
 This example of RequestInterceptor will "intercept" on a per request basis to add a header:
 
-	public RequestDecorator authorize(final String credentials) {
+	public RequestInterceptor authorize(final String credentials) {
 		return new RequestInterceptor() {
 			@Override
 			public void intercept(HttpUriRequest request) {
