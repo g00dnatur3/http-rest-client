@@ -74,11 +74,11 @@ public class RestClient extends AbstractRestClient {
     	return get(null, path, params, type, 200);
     }
     
-    public Header create(RequestDecorator decorator, String path, List<?> data) throws Exception {
+    public Header create(RequestDecorator decorator, String path, List<?> data) throws RestClientException, IOException {
         return create(decorator, path, data, 201);
     }
     
-    public Header create(String path, List<?> data) throws Exception {
+    public Header create(String path, List<?> data) throws RestClientException, IOException {
         return create(null, path, data, 201);
     }
 
@@ -86,7 +86,9 @@ public class RestClient extends AbstractRestClient {
         HttpPost post = contentTypeJson(new HttpPost(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         post.setEntity(entity);
-        return execute(decorator, post, expectedStatus).getFirstHeader("Location");
+        HttpResponse response = execute(decorator, post, expectedStatus);
+        consume(response);
+        return response.getFirstHeader("Location");
     }
 
     public Header create(RequestDecorator decorator, String path, Object object)
@@ -103,7 +105,9 @@ public class RestClient extends AbstractRestClient {
     	HttpPost post = contentTypeJson(new HttpPost(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         post.setEntity(entity);
-        return execute(decorator, post, expectedStatus).getFirstHeader("Location");
+        HttpResponse response = execute(decorator, post, expectedStatus);
+        consume(response);
+        return response.getFirstHeader("Location");
     }
     
     public void delete(RequestDecorator decorator, String path) throws Exception {
