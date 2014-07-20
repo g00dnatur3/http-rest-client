@@ -61,15 +61,11 @@ public abstract class AbstractRestClient {
 	return mapper.convertValue(data, JsonNode.class);
     }
 
-    public String contentAsString(HttpResponse response) throws IOException {
-	return IOUtils.toString(response.getEntity().getContent(), "UTF-8");
-    }
-
     protected byte[] contentAsBytes(HttpResponse response) throws IOException {
 	return IOUtils.toByteArray(response.getEntity().getContent());
     }
 
-    private HttpResponse execute(RequestDecorator decorator, HttpUriRequest request) throws ClientProtocolException,
+    protected HttpResponse execute(RequestDecorator decorator, HttpUriRequest request) throws ClientProtocolException,
 	    IOException {
 
 	if (decorator != null) {
@@ -114,7 +110,7 @@ public abstract class AbstractRestClient {
 	return response;
     }
 
-    private int successStatus(String method) {
+    protected int successStatus(String method) {
 	if (method.equalsIgnoreCase("POST")) {
 	    return 201;
 	}
