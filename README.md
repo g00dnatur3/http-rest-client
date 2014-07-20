@@ -5,6 +5,29 @@ This is an easy to use REST client written in Java and levarging the HttpClient 
 I was frustrated with how there is nothing out there (in Java) to simply execute REST http calls.
 I looked at the Jersey Client and it still has too much configuration and boilerplate code.
 
+SBT/Maven Dependency
+-------------------------
+
+SBT
+
+	resolvers += "java-utils" at "http://dl.bintray.com/g00dnatur3/java-utils/"
+	
+	libraryDependencies ++= Seq(
+	  "g00dnatur3" %% "http-rest-client" % "1.0.0"
+	)
+	
+Maven
+
+	<repository>
+		<id>java-utils</id>
+		<url>http://dl.bintray.com/g00dnatur3/java-utils/</url>
+	</repository>
+
+	<dependency>
+		<groupId>g00dnatur3</groupId>
+		<artifactId>http-rest-client_2.10</artifactId>
+		<version>1.0.0</version>
+	</dependency>
 
 Getting Started
 -------------------------
