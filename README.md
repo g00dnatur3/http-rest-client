@@ -127,7 +127,7 @@ This is an example of a RequestDecorator that will "decorate" all requests sent 
 	
 All RestClient methods `get`,`create`,`update`,`delete` are overloaded with a RequestDecorator.
 
-This allows setting headers/cookies on a per reqeust basis instead of a per client basis as show above.
+This allows setting headers/cookies on a per reqeust basis instead of a per client basis as shown above.
 
 This example of RequestDecorator will "decorate" on a per request basis:
 
