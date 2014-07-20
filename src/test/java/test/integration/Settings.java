@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class Settings {
 
-    public static final String geocoderUrl = "http://maps.googleapis.com/maps/api/geocode/json";
+    static final String geocoderUrl = "http://maps.googleapis.com/maps/api/geocode/json";
 
     static void assertHasAddressComponents(JsonNode node) {
 	assertNotNull(node);

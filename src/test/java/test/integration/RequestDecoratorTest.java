@@ -51,7 +51,7 @@ public class RequestDecoratorTest {
     }
 
     private void setParams(HttpUriRequest request, String address, boolean sensor) {
-	// i don't reccoment to set parameters this way,
+	// i don't recommend to set parameters this way,
 	// its only here so i can verify the decorator is working
 	HttpParams params = new BasicHttpParams();
 	params.setParameter("address", address);
