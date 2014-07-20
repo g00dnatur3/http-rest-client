@@ -27,7 +27,7 @@ public abstract class AbstractRestClient {
 	
 	protected final ObjectMapper mapper;
 
-	private final RequestDecorator decorator;
+	protected final RequestDecorator decorator;
 	
 	protected AbstractRestClient(RestClientBuilder builder) {
 		this.client = builder.client;
