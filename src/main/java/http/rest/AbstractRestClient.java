@@ -10,6 +10,10 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
@@ -151,5 +155,21 @@ public abstract class AbstractRestClient {
     protected <T extends HttpUriRequest> T contentTypeJson(T request) {
     	request.addHeader("Content-Type", ContentType.APPLICATION_JSON.toString());
     	return request;
+    }
+    
+    protected HttpPost newHttpPost(String url) {
+    	return new HttpPost(url);
+    }
+    
+    protected HttpGet newHttpGet(String url) {
+    	return new HttpGet(url);
+    }
+    
+    protected HttpPut newHttpPut(String url) {
+    	return new HttpPut(url);
+    }
+    
+    protected HttpDelete newHttpDelete(String url) {
+    	return new HttpDelete(url);
     }
 }

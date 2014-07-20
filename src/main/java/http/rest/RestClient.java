@@ -25,7 +25,7 @@ public class RestClient extends AbstractRestClient {
     private String get(RequestDecorator decorator, String path, Map<String, String> queryParams, int expectedStatus) 
     		throws RestClientException, IOException {
     	
-        HttpGet get = new HttpGet(appendParams(path, queryParams));
+        HttpGet get = newHttpGet(appendParams(path, queryParams));
         HttpResponse response = execute(decorator, get, expectedStatus);
         String content = contentAsString(response);
         consume(response);
@@ -83,7 +83,7 @@ public class RestClient extends AbstractRestClient {
     }
 
     private Header create(RequestDecorator decorator, String path, Object object, int expectedStatus) throws RestClientException, IOException {
-        HttpPost post = contentTypeJson(new HttpPost(path));
+        HttpPost post = contentTypeJson(newHttpPost(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         post.setEntity(entity);
         HttpResponse response = execute(decorator, post, expectedStatus);
@@ -102,7 +102,7 @@ public class RestClient extends AbstractRestClient {
     }
 
     private Header create(RequestDecorator decorator, String path, List<?> data, int expectedStatus) throws RestClientException, IOException {
-    	HttpPost post = contentTypeJson(new HttpPost(path));
+    	HttpPost post = contentTypeJson(newHttpPost(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         post.setEntity(entity);
         HttpResponse response = execute(decorator, post, expectedStatus);
@@ -119,7 +119,7 @@ public class RestClient extends AbstractRestClient {
     }
 
     private void delete(RequestDecorator decorator, String path, int expectedStatus) throws RestClientException, IOException {
-        HttpDelete delete = new HttpDelete(path);
+        HttpDelete delete = newHttpDelete(path);
         consume(execute(decorator, delete, expectedStatus));
     }
 
@@ -134,7 +134,7 @@ public class RestClient extends AbstractRestClient {
     private void update(RequestDecorator decorator, String path, Object object, int expectedStatus) 
     		throws RestClientException, IOException {
     	
-        HttpPut put = contentTypeJson(new HttpPut(path));
+        HttpPut put = contentTypeJson(newHttpPut(path));
         HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
         put.setEntity(entity);
         consume(execute(decorator, put, expectedStatus));
@@ -151,7 +151,7 @@ public class RestClient extends AbstractRestClient {
     private void update(RequestDecorator decorator, String path, List<?> data, int expectedStatus) 
     		throws RestClientException, IOException {
     	
-        HttpPut put = contentTypeJson(new HttpPut(path));
+        HttpPut put = contentTypeJson(newHttpPut(path));
         HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
         put.setEntity(entity);
         consume(execute(decorator, put, expectedStatus));

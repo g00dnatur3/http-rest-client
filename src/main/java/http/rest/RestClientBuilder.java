@@ -1,5 +1,7 @@
 package http.rest;
 
+import java.lang.reflect.Constructor;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -14,7 +16,7 @@ public class RestClientBuilder {
 	
 	protected RequestDecorator decorator;
 	
-	protected RestClientCreator creator;
+	protected Class<? extends RestClient> clazz;
 	
 	protected RestClientBuilder() {}
 	
@@ -33,14 +35,14 @@ public class RestClientBuilder {
 		return this;
 	}
 	
-	public RestClientBuilder restClientCreator(RestClientCreator creator) {
-		this.creator = creator;
+	public RestClientBuilder restClientClass(Class<? extends RestClient> clazz) {
+		this.clazz = clazz;
 		return this;
 	}
 	
 	public RestClient build() {
-		if (creator == null) {
-			creator = new RestClientCreator();
+		if (clazz == null) {
+			clazz = RestClient.class;
 		}
 		if (mapper == null) {
 			mapper = new ObjectMapper();
@@ -49,7 +51,17 @@ public class RestClientBuilder {
 		if (client == null) {
 			client = HttpClientBuilder.create().useSystemProperties().build();
 		}
-		return creator.create(this);
+		return createRestClient(this, clazz);
+	}
+	
+	protected <T extends RestClient> T createRestClient(RestClientBuilder builder, Class<T> restClientClass) {
+		try {
+			Constructor<T> constructor = restClientClass.getDeclaredConstructor(RestClientBuilder.class);
+			constructor.setAccessible(true);
+			return constructor.newInstance(builder);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }

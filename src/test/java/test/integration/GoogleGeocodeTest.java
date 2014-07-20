@@ -1,6 +1,5 @@
 package test.integration;
 
-import static org.junit.Assert.assertNotNull;
 import http.rest.RestClient;
 
 import java.net.URLEncoder;
