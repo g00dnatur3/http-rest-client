@@ -17,7 +17,7 @@ SBT
 	resolvers += "java-utils" at "http://dl.bintray.com/g00dnatur3/java-utils/"
 	
 	libraryDependencies ++= Seq(
-	  "g00dnatur3" %% "http-rest-client" % "1.0.0"
+	  "g00dnatur3" %% "http-rest-client" % "1.0.1"
 	)
 	
 Maven
@@ -30,7 +30,7 @@ Maven
 	<dependency>
 		<groupId>g00dnatur3</groupId>
 		<artifactId>http-rest-client_2.10</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</dependency>
 
 Getting Started
@@ -193,6 +193,8 @@ I designed it so that handling errors is flexible and easy..
 		
 		//if the payload contains error information you can get it:
 		String errorInfo = client.contentAsString(response);
+		
+		client.consume(response); //closes the response
 	}
 
 
