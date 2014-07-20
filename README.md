@@ -174,6 +174,28 @@ For example, if you wanted to configure the proxy you could do:
 	System.setProperty("http.proxyPort","8080")
 
 
+Handling failed Requests
+------------------------------
+If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however your need.
+
+All the RestClient methods `get` `post` `put` `create` throw a RestClientException when they fail to execute.
+
+The RestClientException contains the actual "ready-to-conume" HttpResponse object.
+
+I designed it so that handling errors is flexible and easy..
+
+
+	try {
+		Person p = client.get(url, queryParams, Person.class)	
+	} catch (RestClientException e) {
+	
+		HttpResponse response = e.response();
+		
+		//if the payload contains error information you can get it:
+		String errorInfo = client.contentAsString(response);
+	}
+
+
 Injecting your own HttpClient
 ------------------------------
 
