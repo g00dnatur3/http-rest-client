@@ -9,7 +9,7 @@ Important Note:  This library only supports JSON payloads. You are more than wel
 
 Cheers!
 
-SBT/Maven Dependency
+SBT / Maven Dependency
 -------------------------
 
 SBT
