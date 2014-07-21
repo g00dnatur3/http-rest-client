@@ -19,7 +19,7 @@ public class CustomRestClientTest {
     RestClient client;
 
     @Test
-    public void injectClassWithBrokenHttpGet() throws Exception {
+    public void injectMyRestClient() throws Exception {
 	client = RestClient.builder().restClientClass(MyRestClient.class).build();
 	JsonNode node = client.get(null, null, JsonNode.class);
 	Assertions.hasAddressComponents(node);
