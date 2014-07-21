@@ -252,7 +252,10 @@ Look at `test.integration.CustomRestClientTest` to a see working example.
 Next Steps
 ------------------------------
 
-Create mocks of HttpClient for unit testing
+Add more tests & a plugin to get code coverage.
+
+Currently there are 9 tests, 5 integration, and 4 unit.
+
 
 Cheers!
 
