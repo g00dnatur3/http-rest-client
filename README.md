@@ -193,7 +193,7 @@ The RestClientException contains the actual "ready-to-consume" HttpResponse obje
 		HttpResponse response = e.response();
 		if (response != null) {
 		
-		    // if the payload contains error information you can get it:
+		    // if the payload contains error information you can get it
 		    String errorInfo = client.contentAsString(response);
 	
 		    client.consume(response); //closes the response
