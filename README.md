@@ -246,7 +246,7 @@ Yup, your read right, you can even inject your own RestClient implementation thr
 	
 	RestClient client = RestClient.builder().restClientClass(MyRestClient.class).build();
 	
-Look at `test.integration.CustomRequestClientTest` to a see working example.
+Look at `test.integration.CustomRestClientTest` to a see working example.
 
 
 Next Steps
