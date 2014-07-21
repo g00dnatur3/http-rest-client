@@ -4,7 +4,7 @@ name := "http-rest-client"
 
 organization := "g00dnatur3"
 
-version := "1.0.17"
+version := "1.0.18"
 
 bintrayPublishSettings
 
@@ -23,6 +23,7 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.7",
   "com.fasterxml.jackson.core" % "jackson-databind" % "2.4.1.2",
   "com.google.guava" % "guava" % "17.0" % "test",
-  "com.novocode" % "junit-interface" % "0.9" % "test"
+  "com.novocode" % "junit-interface" % "0.9" % "test",
+  "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 

@@ -8,6 +8,9 @@ import java.util.Map;
 import org.apache.http.client.methods.HttpGet;
 import org.junit.Test;
 
+import test.Assertions;
+import test.Settings;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
 
@@ -19,7 +22,7 @@ public class CustomRequestClientTest {
     public void injectClassWithBrokenHttpGet() throws Exception {
 	client = RestClient.builder().restClientClass(MyRestClient.class).build();
 	JsonNode node = client.get(null, null, JsonNode.class);
-	Settings.assertHasAddressComponents(node);
+	Assertions.hasAddressComponents(node);
     }
 
     public static class MyRestClient extends RestClient {

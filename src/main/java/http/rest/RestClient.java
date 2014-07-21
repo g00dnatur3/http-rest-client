@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -23,8 +24,8 @@ public class RestClient extends AbstractRestClient {
 	super(builder);
     }
 
-    protected String get(RequestInterceptor interceptor, String path, Map<String, String> queryParams, int expectedStatus)
-	    throws RestClientException, IOException {
+    protected String get(RequestInterceptor interceptor, String path, Map<String, String> queryParams,
+	    int expectedStatus) throws RestClientException, IOException {
 
 	HttpGet get = newHttpGet(appendParams(path, queryParams));
 	HttpResponse response = execute(interceptor, get, expectedStatus);
@@ -37,8 +38,8 @@ public class RestClient extends AbstractRestClient {
 	return content;
     }
 
-    public <T> T get(RequestInterceptor interceptor, String path, Map<String, String> queryParams, Class<T> entityClass,
-	    int expectedStatus) throws RestClientException, IOException {
+    public <T> T get(RequestInterceptor interceptor, String path, Map<String, String> queryParams,
+	    Class<T> entityClass, int expectedStatus) throws RestClientException, IOException {
 	String content = get(interceptor, path, queryParams, expectedStatus);
 	if (content != null) {
 	    return bindObject(content, entityClass);
@@ -77,7 +78,8 @@ public class RestClient extends AbstractRestClient {
 	return get(null, path, params, type, 200);
     }
 
-    public Header create(RequestInterceptor interceptor, String path, List<?> data) throws RestClientException, IOException {
+    public Header create(RequestInterceptor interceptor, String path, List<?> data) throws RestClientException,
+	    IOException {
 	return create(interceptor, path, data, 201);
     }
 
@@ -88,7 +90,7 @@ public class RestClient extends AbstractRestClient {
     public Header create(RequestInterceptor interceptor, String path, Object object, int expectedStatus)
 	    throws RestClientException, IOException {
 	HttpPost post = contentTypeJson(newHttpPost(path));
-	HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
+	HttpEntity entity = new StringEntity(toJson(object).toString(), Charsets.UTF_8);
 	post.setEntity(entity);
 	HttpResponse response = execute(interceptor, post, expectedStatus);
 	consume(response);
@@ -107,7 +109,7 @@ public class RestClient extends AbstractRestClient {
     public Header create(RequestInterceptor interceptor, String path, List<?> data, int expectedStatus)
 	    throws RestClientException, IOException {
 	HttpPost post = contentTypeJson(newHttpPost(path));
-	HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
+	HttpEntity entity = new StringEntity(toJsonArray(data).toString(), Charsets.UTF_8);
 	post.setEntity(entity);
 	HttpResponse response = execute(interceptor, post, expectedStatus);
 	consume(response);
@@ -128,7 +130,8 @@ public class RestClient extends AbstractRestClient {
 	consume(execute(interceptor, delete, expectedStatus));
     }
 
-    public void update(RequestInterceptor interceptor, String path, Object object) throws RestClientException, IOException {
+    public void update(RequestInterceptor interceptor, String path, Object object) throws RestClientException,
+	    IOException {
 	update(interceptor, path, object, 200);
     }
 
@@ -140,12 +143,13 @@ public class RestClient extends AbstractRestClient {
 	    throws RestClientException, IOException {
 
 	HttpPut put = contentTypeJson(newHttpPut(path));
-	HttpEntity entity = new StringEntity(toJson(object).toString(), "UTF-8");
+	HttpEntity entity = new StringEntity(toJson(object).toString(), Charsets.UTF_8);
 	put.setEntity(entity);
 	consume(execute(interceptor, put, expectedStatus));
     }
 
-    public void update(RequestInterceptor interceptor, String path, List<?> data) throws RestClientException, IOException {
+    public void update(RequestInterceptor interceptor, String path, List<?> data) throws RestClientException,
+	    IOException {
 	update(interceptor, path, data, 200);
     }
 
@@ -157,7 +161,7 @@ public class RestClient extends AbstractRestClient {
 	    throws RestClientException, IOException {
 
 	HttpPut put = contentTypeJson(newHttpPut(path));
-	HttpEntity entity = new StringEntity(toJsonArray(data).toString(), "UTF-8");
+	HttpEntity entity = new StringEntity(toJsonArray(data).toString(), Charsets.UTF_8);
 	put.setEntity(entity);
 	consume(execute(interceptor, put, expectedStatus));
     }
@@ -170,7 +174,7 @@ public class RestClient extends AbstractRestClient {
 
     public String contentAsString(HttpResponse response) throws IOException {
 	if (response != null && response.getEntity() != null) {
-	    return IOUtils.toString(response.getEntity().getContent(), "UTF-8");
+	    return IOUtils.toString(response.getEntity().getContent(), Charsets.UTF_8);
 	}
 	return null;
     }

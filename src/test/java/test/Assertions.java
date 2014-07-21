@@ -1,14 +1,12 @@
-package test.integration;
+package test;
 
 import static org.junit.Assert.assertNotNull;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class Settings {
+public class Assertions {
 
-    static final String geocoderUrl = "http://maps.googleapis.com/maps/api/geocode/json";
-
-    static void assertHasAddressComponents(JsonNode node) {
+    public static void hasAddressComponents(JsonNode node) {
 	assertNotNull(node);
 	assertNotNull(node.get("results"));
 	assertNotNull(node.get("results").get(0));

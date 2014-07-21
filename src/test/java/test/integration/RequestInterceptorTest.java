@@ -1,20 +1,23 @@
 package test.integration;
 
-import static org.junit.Assert.assertNotNull;
 import http.rest.RequestInterceptor;
 import http.rest.RestClient;
 
 import java.net.URLEncoder;
 
+import org.apache.commons.io.Charsets;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.junit.Before;
 import org.junit.Test;
 
+import test.Assertions;
+import test.Settings;
+
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class RequestDecoratorTest {
+public class RequestInterceptorTest {
 
     RestClient client;
 
@@ -26,7 +29,8 @@ public class RequestDecoratorTest {
     @Test
     public void interceptAllRequestsThruTheClientBuilder() throws Exception {
 	final String address = "1980 W. Bayshore Rd. 94303";
-	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false";
+	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, Charsets.UTF_8.toString())
+	        + "&sensor=false";
 
 	client = RestClient.builder().requestInterceptor(new RequestInterceptor() {
 	    @Override
@@ -40,7 +44,8 @@ public class RequestDecoratorTest {
     @Test
     public void interceptReqeustsAsNeeded() throws Exception {
 	final String address = "1980 W. Bayshore Rd. 94303";
-	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false";
+	final String url = Settings.geocoderUrl + "?address=" + URLEncoder.encode(address, Charsets.UTF_8.toString())
+	        + "&sensor=false";
 
 	doAssertions(client.get(new RequestInterceptor() {
 	    @Override
@@ -60,6 +65,6 @@ public class RequestDecoratorTest {
     }
 
     private void doAssertions(JsonNode node) {
-	Settings.assertHasAddressComponents(node);
+	Assertions.hasAddressComponents(node);
     }
 }

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -65,8 +66,8 @@ public abstract class AbstractRestClient {
 	return IOUtils.toByteArray(response.getEntity().getContent());
     }
 
-    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request) throws ClientProtocolException,
-	    IOException {
+    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request)
+	    throws ClientProtocolException, IOException {
 
 	if (interceptor != null) {
 	    interceptor.intercept(request);
@@ -136,7 +137,7 @@ public abstract class AbstractRestClient {
 		sb.append("&");
 	    }
 	    try {
-		sb.append(key).append("=").append(URLEncoder.encode(value, "utf-8"));
+		sb.append(key).append("=").append(URLEncoder.encode(value, Charsets.UTF_8.toString()));
 	    } catch (UnsupportedEncodingException e) {
 		e.printStackTrace();
 	    }
