@@ -247,14 +247,12 @@ Yup, your read right, you can even inject your own RestClient implementation thr
 	RestClient client = RestClient.builder().restClientClass(MyRestClient.class).build();
 	
 Look at `test.integration.CustomRequestClientTest` to a see working example.
-	
-I can use this feature to provide mock instances of HttpGet, HttpPost, HttpPut, and HttpDelete for unit testing.
 
 
 Next Steps
 ------------------------------
 
-Create mocks of HttpClient dependencies for unit testing
+Create mocks of HttpClient for unit testing
 
 Cheers!
 
