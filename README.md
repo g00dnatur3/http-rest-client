@@ -109,7 +109,7 @@ Execute a PUT Request on a list of objects
 	
 	client.update(url, people);
 
-Add headers with RequestInterceptor (How to Authorize requests)
+Add Headers with RequestInterceptor
 ------------------------------------------------
 
 In order to add headers on a request you need to use the RequestInterceptor.
@@ -209,7 +209,7 @@ Because I am using the builder pattern, it is quite easy to inject your own Http
 
 	RestClient.builder().httpClient(myHttpClient).build();
 
-Setting Cookies with your own HttpClient
+Set Cookies with your own HttpClient
 -------------------------------------
 
 In order to set cookies, you need create your own HttpClient like so:
