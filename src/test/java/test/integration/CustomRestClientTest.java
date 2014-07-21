@@ -14,7 +14,7 @@ import test.Settings;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.Maps;
 
-public class CustomRequestClientTest {
+public class CustomRestClientTest {
 
     RestClient client;
 
