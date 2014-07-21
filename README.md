@@ -148,6 +148,7 @@ This example of RequestInterceptor will "intercept" on a per request basis to ad
 	    return client.create(authorize(credentials), url, person);
 	}
 
+Look at `test.integration.RequestInterceptorTest` to see working examples.
 
 Configuration (Proxy, SSL...)
 -------------------------
