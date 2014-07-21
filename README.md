@@ -186,23 +186,19 @@ All the RestClient methods `get` `post` `put` `create` throw a RestClientExcepti
 
 The RestClientException contains the actual "ready-to-consume" HttpResponse object.
 
-
 	try {
 		Person p = client.get(url, queryParams, Person.class)	
 	} catch (RestClientException e) {
 	
 		HttpResponse response = e.response();
-		
 		if (response != null) {
 		
-		    //if the payload contains error information you can get it:
+		    // if the payload contains error information you can get it:
 		    String errorInfo = client.contentAsString(response);
-		
+	
 		    client.consume(response); //closes the response
 		}
-
 	}
-
 
 Injecting your own HttpClient
 ------------------------------
@@ -228,8 +224,6 @@ In order to set cookies, you need create your own HttpClient like so:
 	HttpClient myHttpClient = HttpClientBuilder.create().setDefaultCookieStore(cookieStore).useSystemProperties().build();
 
 	RestClient client = RestClient.builder().httpClient(myHttpClient).build();
-
-
 
 Injecting your own RestClient!
 --------------------------------
