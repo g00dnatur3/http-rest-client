@@ -124,7 +124,7 @@ This is an example of a RequestInterceptor that will "intercept" all requests se
 	};
 	RestClient client = RestClient.builder().requestInterceptor(authorize).build();
 	
-All RestClient methods `get`,`create`,`update`,`delete` are overloaded with a RequestInterceptor.
+All the `get`,`create`,`update`,`delete` methods are overloaded with a RequestInterceptor.
 
 This allows adding headers on a per reqeust basis instead of a per client basis as shown above.
 
@@ -181,7 +181,7 @@ Handling failed Requests
 ------------------------------
 If your request fails, have no fear, you can get your hands on the HttpResonse and handle it however you need.
 
-All the RestClient methods `get` `post` `put` `create` throw a RestClientException when they fail to execute.
+The `get`,`create`,`update`,`delete` methods throw a RestClientException when they fail to execute.
 
 The RestClientException contains the actual "ready-to-consume" HttpResponse object.
 
@@ -198,6 +198,27 @@ The RestClientException contains the actual "ready-to-consume" HttpResponse obje
 		    client.consume(response); //closes the response
 		}
 	}
+
+Expected Response Status
+------------------------------
+
+The default expected response status for `get`,`update`,`delete` is 200 and for `create` its 201.
+
+The RestClient will throw a RestClientException if the actual response status is not equal to the expected status.
+
+All the methods in the RestClient are overloaded with `int expectedStatus` so you can specify the expected response status if it deviates from the default.
+
+For example, the `create` has a default expected status of 201, but for some reason the server is sending back a 200 response... you can do the following:
+
+	String url = ...
+	Person person = ...
+	
+	try {
+		Header header = client.create(url, person, 200);
+	} catch (RestClientException e) {
+		// here if the response status is not 200 or the request failed to execute.
+	}
+
 
 Injecting your own HttpClient
 ------------------------------
