@@ -1,8 +1,7 @@
 http-rest-client
 ======================
 
-A simple & easy to use REST client written in Java and levarging the HttpClient 4.3 library. 
-I was frustrated with how there is nothing out there (in Java) to simply execute REST calls.
+A simple & easy to use REST client written in Java and levarging the HttpClient 4.3 library.
 
 Important Note:  This library only supports JSON payloads. You are more than welcome to add XML support and send me a pull request. I have no future plans to add XML support.
 
