@@ -117,7 +117,7 @@ This is an example of a RequestInterceptor that will "intercept" all requests se
 	final String credentials = ...
 	RequestInterceptor authorize = new RequestInterceptor() {
 		@Override
-		public void intercept(HttpUriRequest request) {
+		public void intercept(HttpRequestBase request) {
 			request.addHeader("Authorization", credentials);
 		}
 	};
