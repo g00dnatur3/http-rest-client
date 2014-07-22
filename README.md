@@ -148,6 +148,25 @@ This example of RequestInterceptor will "intercept" on a per request basis to ad
 
 Look at `test.integration.RequestInterceptorTest` to see working examples.
 
+Configure the Request with RequestInterceptor
+----------------------------------------------
+
+Similar with how we can add headers on a per request basis, we can also do some config on a per request basis.
+
+	public RequestInterceptor connectTimeout(final int timeout) {
+		return new RequestInterceptor() {
+			@Override
+			public void intercept(HttpUriRequest request) {
+				request.setConfig(
+					RequestConfig.custom()
+					.setConnectTimeout(timeout).build());
+			}
+		};
+	}
+	
+	client.create(connectTimeout(1000), url, person);
+	
+
 Configuration (Proxy, SSL...)
 -------------------------
 
@@ -174,7 +193,6 @@ For example, if you wanted to configure the proxy you could do:
 
 	System.setProperty("http.proxyHost","somehost.com")
 	System.setProperty("http.proxyPort","8080")
-
 
 Handling failed Requests
 ------------------------------
