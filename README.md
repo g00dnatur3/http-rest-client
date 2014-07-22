@@ -16,7 +16,7 @@ SBT
 	resolvers += "java-utils" at "http://dl.bintray.com/g00dnatur3/java-utils/"
 	
 	libraryDependencies ++= Seq(
-	  "g00dnatur3" %% "http-rest-client" % "1.0.18"
+	  "g00dnatur3" %% "http-rest-client" % "1.0.19"
 	)
 	
 Maven
@@ -29,7 +29,7 @@ Maven
 	<dependency>
 		<groupId>g00dnatur3</groupId>
 		<artifactId>http-rest-client_2.10</artifactId>
-		<version>1.0.18</version>
+		<version>1.0.19</version>
 	</dependency>
 
 Getting Started
