@@ -6,6 +6,7 @@ import http.rest.RestClient;
 import java.net.URLEncoder;
 
 import org.apache.commons.io.Charsets;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
@@ -34,7 +35,7 @@ public class RequestInterceptorTest {
 
 	client = RestClient.builder().requestInterceptor(new RequestInterceptor() {
 	    @Override
-	    public void intercept(HttpUriRequest request) {
+	    public void intercept(HttpRequestBase request) {
 		setParams(request, address, false);
 	    }
 	}).build();
@@ -49,7 +50,7 @@ public class RequestInterceptorTest {
 
 	doAssertions(client.get(new RequestInterceptor() {
 	    @Override
-	    public void intercept(HttpUriRequest request) {
+	    public void intercept(HttpRequestBase request) {
 		setParams(request, address, false);
 	    }
 	}, url, null, JsonNode.class));

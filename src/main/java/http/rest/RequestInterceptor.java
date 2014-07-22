@@ -1,10 +1,10 @@
 package http.rest;
 
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.HttpRequestBase;
 
 public class RequestInterceptor {
 
-    public void intercept(HttpUriRequest request) {
+    public void intercept(HttpRequestBase request) {
     }
 
 }

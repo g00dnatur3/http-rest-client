@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
@@ -66,7 +67,7 @@ public abstract class AbstractRestClient {
 	return IOUtils.toByteArray(response.getEntity().getContent());
     }
 
-    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request)
+    protected HttpResponse execute(RequestInterceptor interceptor, HttpRequestBase request)
 	    throws ClientProtocolException, IOException {
 
 	if (interceptor != null) {
@@ -77,7 +78,7 @@ public abstract class AbstractRestClient {
 	return client.execute(request);
     }
 
-    protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request, int expectedStatus)
+    protected HttpResponse execute(RequestInterceptor interceptor, HttpRequestBase request, int expectedStatus)
 	    throws RestClientException {
 
 	String method = request.getMethod();

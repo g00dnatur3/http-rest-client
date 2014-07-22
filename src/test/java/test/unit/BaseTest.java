@@ -16,6 +16,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import test.Settings;
@@ -31,7 +32,7 @@ public class BaseTest {
 	}
 
 	@Override
-	protected HttpResponse execute(RequestInterceptor interceptor, HttpUriRequest request)
+	protected HttpResponse execute(RequestInterceptor interceptor, HttpRequestBase request)
 	        throws ClientProtocolException, IOException {
 
 	    return mockHttpResponse(request);

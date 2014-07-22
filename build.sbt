@@ -4,7 +4,7 @@ name := "http-rest-client"
 
 organization := "g00dnatur3"
 
-version := "1.0.20"
+version := "1.0.21"
 
 bintrayPublishSettings
 
