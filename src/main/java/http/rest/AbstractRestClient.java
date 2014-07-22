@@ -91,9 +91,9 @@ public abstract class AbstractRestClient {
 	}
 	int status = response.getStatusLine().getStatusCode();
 	if (status >= 200 && status < 400) {
-	    logger.error("[" + status + "] Successfully sent " + method + " " + path);
+	    logger.info("[" + status + "] Successfully sent " + method + " " + path);
 	} else {
-	    logger.info("[" + status + "] Failed to send " + method + " " + path);
+	    logger.error("[" + status + "] Failed to send " + method + " " + path);
 	}
 	if (expectedStatus != status) {
 	    StringBuilder sb = new StringBuilder("Status of " + status);
