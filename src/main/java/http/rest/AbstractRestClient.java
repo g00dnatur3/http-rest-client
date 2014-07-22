@@ -82,7 +82,7 @@ public abstract class AbstractRestClient {
 
 	String method = request.getMethod();
 	String path = request.getURI().toString();
-	logger.info("Send --> " + method + " " + path);
+	logger.info("Send -> " + method + " " + path);
 	HttpResponse response = null;
 	try {
 	    response = execute(interceptor, request);
@@ -90,18 +90,10 @@ public abstract class AbstractRestClient {
 	    throw new RestClientException(e, response);
 	}
 	int status = response.getStatusLine().getStatusCode();
-	if (expectedStatus != successStatus(method)) {
-	    if (status == successStatus(method)) {
-		logger.error("[Not Expected] Successfully sent " + method + " " + path);
-	    } else {
-		logger.info("[Expected] Failed to send " + method + " " + path);
-	    }
+	if (status >= 200 && status < 400) {
+	    logger.error("[" + status + "] Successfully sent " + method + " " + path);
 	} else {
-	    if (status == successStatus(method)) {
-		logger.info("[Expected] Successfully sent " + method + " " + path);
-	    } else {
-		logger.error("[Not Expected] Failed to send " + method + " " + path);
-	    }
+	    logger.info("[" + status + "] Failed to send " + method + " " + path);
 	}
 	if (expectedStatus != status) {
 	    StringBuilder sb = new StringBuilder("Status of " + status);
