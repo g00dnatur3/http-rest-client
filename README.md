@@ -219,7 +219,7 @@ The RestClientException contains the actual "ready-to-consume" HttpResponse obje
 Expected Response Status
 ------------------------------
 
-The default expected response status for `get`,`update`,`delete` is 200 and for `create` its 201.
+The default expected response status for `get`,`update`,`delete` is 200 and for `create` it's 201.
 
 The RestClient will throw a RestClientException if the actual response status is not equal to the expected status.
 
