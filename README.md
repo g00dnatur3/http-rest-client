@@ -138,11 +138,11 @@ This example of RequestInterceptor will "intercept" on a per request basis to ad
 		};
 	}
 	
-	public Person getPerson(String credentials) {
+	public Person getPerson(String credentials, url) {
 	    return client.get(authorize(credentials), url, null, Person.class); //queryParams=null
 	}
 
-	public Header createPerson(String credentials, Person person) {
+	public Header createPerson(String credentials, Person person, url) {
 	    return client.create(authorize(credentials), url, person);
 	}
 
