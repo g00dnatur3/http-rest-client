@@ -125,8 +125,6 @@ This is an example of a RequestInterceptor that will "intercept" all requests se
 	
 All the `get`,`create`,`update`,`delete` methods are overloaded with a RequestInterceptor.
 
-This allows adding headers on a per reqeust basis instead of a per client basis as shown above.
-
 This example of RequestInterceptor will "intercept" on a per request basis to add a header:
 
 	public RequestInterceptor authorize(final String credentials) {
